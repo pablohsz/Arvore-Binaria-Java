@@ -4,6 +4,7 @@ public class Arvore {
 
     public Arvore(int chave) {
         raiz = new Celula(chave);
+
     }
 
     public Celula getRaiz() {
@@ -15,6 +16,7 @@ public class Arvore {
     }
 
     public void inserir(int chave) {
+        //Método para inserir um nó na árvore.
         Celula z = new Celula(chave);
         Celula y, x;
         y = null;
@@ -42,6 +44,7 @@ public class Arvore {
     }
 
     public void remocao(Celula z) {
+        //Método para remover um nó da árvore.
         if (z.getEsquerda() == null) {
             this.transplante(z, z.getDireita());
         } else {
@@ -62,6 +65,7 @@ public class Arvore {
     }
 
     public Celula busca(Celula x, int k) {
+        //Método para buscar um nó na árvore.
         if (x == null || k == x.getKey()){
             return x;
         }
@@ -73,6 +77,7 @@ public class Arvore {
     }
 
     public Celula minimo(Celula x) {
+        //Método recursivo para encontrar o mínimo da árvore.
         while (x.getEsquerda() != null) {
             x = x.getEsquerda();
         }
@@ -80,6 +85,7 @@ public class Arvore {
     }
 
     public Celula maximo(Celula x) {
+        //Método recursivo para encontrar o máximo da árvore.
         while (x.getDireita() != null) {
             x = x.getDireita();
         }
@@ -87,6 +93,7 @@ public class Arvore {
     }
 
     public Celula sucessor(Celula x) {
+        //Método recursivo para encontrar o sucessor de um nodo.
         if (x.getDireita() == null) {
             return this.minimo(x.getDireita());
         }
@@ -99,6 +106,7 @@ public class Arvore {
     }
 
     public Celula predecessor(Celula x) {
+        //Método recursivo para encontrar o predecessor de um nodo.
         if (x.getEsquerda() != null) {
             return this.maximo(x.getEsquerda());
         }
@@ -111,17 +119,23 @@ public class Arvore {
     }
 
     public void transplante(Celula u, Celula v) {
+        //Método para realizar um transplante. Substitui uma subárvore como um filho de seu pai por outra árvore.
         if (u.getPai() == null) {
             this.raiz = v;
         } else {
-            if (u == (u.getPai()).getDireita()) {
-
-
+            if (u == u.getPai().getEsquerda()){
+                u.getPai().setEsquerda(v);
+            } else {
+                u.getPai().setDireita(v);
             }
+        }
+        if (v != null){
+            v.setPai(u.getPai());
         }
     }
 
     public void emOrdem(Celula x) {
+        //Método recursivo para percorrer a árvore em-ordem.
         if (x != null) {
             this.emOrdem(x.getEsquerda());
             System.out.println(x.getKey());
@@ -130,6 +144,7 @@ public class Arvore {
     }
 
     public void preOrdem(Celula x) {
+        //Método recursivo para percorrer a árvore pré-ordem.
         if (x != null) {
             System.out.println(x.getKey());
             this.preOrdem(x.getEsquerda());
@@ -138,6 +153,7 @@ public class Arvore {
     }
 
     public void posOrdem(Celula x) {
+        //Método recursivo para percorrer a árvore pós-ordem.
         if (x != null) {
             this.posOrdem(x.getEsquerda());
             this.posOrdem(x.getDireita());
